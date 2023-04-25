@@ -1,3 +1,14 @@
+let playerScore = 0;
+let computerScore = 0;
+
+const buttons = document.querySelectorAll("input");
+
+function disableButtons() {
+    buttons.forEach(elem => {
+        elem.disabled = true
+    })
+    }
+
 function getComputerChoice(){
     let num = Math.floor(Math.random() * 3);
     if(num === 0) {
@@ -10,31 +21,47 @@ function getComputerChoice(){
 }
 
 
+function playRound(playerSelection) {
+    let computerSelection = getComputerChoice();
+    let result = ""
 
+    if ((playerSelection == "rock" && computerSelection == "scissors") ||
+        (playerSelection == "paper" && computerSelection == "rock") ||
+        (playerSelection == "scissors" && computerSelection == "paper")) {
 
-function playRound(playerSelection, computerSelection) {
-    
-    if(computerSelection == "Rock" && playerSelection == "rock") {
-        return "It's a tie."
-    } else if(computerSelection == "Paper" && playerSelection == "rock") {
-        return "You lost. Paper is stronger than Rock."
-    } else if(computerSelection == "Scissors" && playerSelection == "rock"){
-        return "You Won!"
-    } else if(computerSelection == "Rock" && playerSelection == "paper") {
-        return "You Won!"
-    } else if(computerSelection == "Paper" && playerSelection == "paper") {
-        return "It's a tie."
-    } else if(computerSelection == "Scissors" && playerSelection == "paper"){
-        return "You lost. Scissors is stronger than Paper."
-    } else if(computerSelection == "Rock" && playerSelection == "scissors") {
-        return "You lost. Rock is stronger than Scissors."
-    } else if(computerSelection == "Paper" && playerSelection == "scissors") {
-        return "You Won!"
-    } else if(computerSelection == "Scissors" && playerSelection == "scissors"){
-        return "It's a tie."
-    }
-}   
-const computerSelection = getComputerChoice();
-const playerSelection = prompt("Rock, Paper, Scissors").toLowerCase();
+            playerScore ++;
 
-console.log(playRound(playerSelection, computerSelection))
+            result = ("You win because " + playerSelection + " beats " + computerSelection
+                    + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
+
+            if (playerScore == 5){
+                result = "<br><br>You won the game. Reload the page to play again."
+                disableButtons();
+            }
+        }
+
+            else if (playerSelection == computerSelection) {
+                result = ("It's a tie. You both chose " + playerSelection
+                        + "<br><br>Player score: " + playerScore + "<br>Computer score " + computerScore)
+            }
+
+            else {
+                computerScore ++;
+                result = ("<br><br>You lose because " + computerSelection + " beats " + playerSelection
+                        + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
+
+                if (computerScore == 5) {
+                    result = ("You Lost. Reload the page to play again.")
+                    disableButtons()
+                }
+            }
+            
+            document.getElementById("result").innerHTML = result;
+            return
+        }
+
+        buttons.forEach(button =>{
+            button.addEventListener('click', function(){
+                playRound(button.value)
+            })
+        })
