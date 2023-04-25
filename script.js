@@ -25,13 +25,13 @@ function playRound(playerSelection) {
     let computerSelection = getComputerChoice();
     let result = ""
 
-    if ((playerSelection == "rock" && computerSelection == "scissors") ||
-        (playerSelection == "paper" && computerSelection == "rock") ||
-        (playerSelection == "scissors" && computerSelection == "paper")) {
+    if ((playerSelection == "Rock" && computerSelection == "Scissors") ||
+        (playerSelection == "Paper" && computerSelection == "Rock") ||
+        (playerSelection == "Scissors" && computerSelection == "Paper")) {
 
             playerScore ++;
 
-            result = ("You win because " + playerSelection + " beats " + computerSelection
+            result = ("<br><br>You win because " + playerSelection + " beats " + computerSelection
                     + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
 
             if (playerScore == 5){
@@ -41,7 +41,7 @@ function playRound(playerSelection) {
         }
 
             else if (playerSelection == computerSelection) {
-                result = ("It's a tie. You both chose " + playerSelection
+                result = ("<br><br>It's a tie. You both chose " + playerSelection
                         + "<br><br>Player score: " + playerScore + "<br>Computer score " + computerScore)
             }
 
@@ -51,7 +51,7 @@ function playRound(playerSelection) {
                         + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
 
                 if (computerScore == 5) {
-                    result = ("You Lost. Reload the page to play again.")
+                    result = ("<br><br>You Lost. Reload the page to play again.")
                     disableButtons()
                 }
             }
